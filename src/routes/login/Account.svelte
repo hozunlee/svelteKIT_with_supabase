@@ -27,6 +27,7 @@
 				.single();
 
 			if (data) {
+				console.log('db 접근');
 				username = data.username;
 				website = data.website;
 				avatarUrl = data.avatar_url;
