@@ -2,6 +2,7 @@
 	import { page } from '$app/stores';
 	import Account from './Account.svelte';
 	import Auth from './Auth.svelte';
+	$: console.log('session', $page);
 </script>
 
 <svelte:head>
