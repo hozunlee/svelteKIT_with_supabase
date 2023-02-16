@@ -1,5 +1,4 @@
 <script>
-	import axios from 'axios';
 	import { env } from '$env/dynamic/public';
 	import { yourAccessToken } from '../../../store/stores';
 	import { onMount } from 'svelte';
@@ -11,7 +10,7 @@
 		getKakaoTokenHandler(data.kakaoCode);
 	});
 
-	const getKakaoTokenHandler = (code) => {
+	const getKakaoTokenHandler = async (code) => {
 		const data = {
 			grant_type: 'authorization_code',
 			client_id: env.PUBLIC_CLIENT_ID,
@@ -23,19 +22,30 @@
 			.join('&');
 
 		//토큰 발급 REST API
-		axios
-			.post('https://kauth.kakao.com/oauth/token', queryString, {
-				headers: {
-					'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'
-				}
-			})
-			.then((res) => {
-				//서버에 토큰 전송
-				// sendKakaoTokenToServer(res.data.access_token)
-				yourAccessToken.set(res.data.access_token);
+		// axios
+		// 	.post('https://kauth.kakao.com/oauth/token', queryString, {
+		// 		headers: {
+		// 			'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'
+		// 		}
+		// 	})
+		// 	.then((res) => {
+		// 		//서버에 토큰 전송
+		// 		// sendKakaoTokenToServer(res.data.access_token)
+		// 		yourAccessToken.set(res.data.access_token);
 
-				goto('/once');
-			});
+		// 		goto('/once');
+		// 	});
+
+		const res = await fetch('https://kauth.kakao.com/oauth/token', {
+			method: 'POST',
+			body: queryString,
+			headers: {
+				'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'
+			}
+		});
+		const result = await res.json();
+		yourAccessToken.set(result.access_token);
+		goto('/once');
 	};
 </script>
 

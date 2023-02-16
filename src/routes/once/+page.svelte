@@ -1,6 +1,5 @@
 <script>
 	import { goto } from '$app/navigation';
-	import { bubble } from 'svelte/internal';
 	import { yourAccessToken } from '../../store/stores';
 
 	$: console.log($yourAccessToken);
