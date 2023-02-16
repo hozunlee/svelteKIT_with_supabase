@@ -1,4 +1,9 @@
 <script>
+	import { goto } from '$app/navigation';
+	import { bubble } from 'svelte/internal';
+	import { yourAccessToken } from '../../store/stores';
+
+	$: console.log($yourAccessToken);
 	const runOnce = (fn) => {
 		let isDone = false;
 
@@ -21,7 +26,12 @@
 	const once = runOnce(fnfn);
 </script>
 
-<h1>once / memorize</h1>
+{#if !$yourAccessToken}
+	<h2>로그인필요</h2>
+	<button on:click={() => goto('/')}>로그인</button>
+{:else}
+	<h1>once / memorize</h1>
 
-<button on:click={() => once('천재')}>한번만</button>
-<button on:click|once={() => once('천재')}>한번만</button>
+	<button on:click={() => once('천재')}>한번만</button>
+	<button on:click|once={() => once('천재')}>한번만</button>
+{/if}

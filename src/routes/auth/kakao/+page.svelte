@@ -1,14 +1,17 @@
 <script>
 	import axios from 'axios';
 	import { env } from '$env/dynamic/public';
-	import { kakaoCode } from '../../../store/stores';
+	import { yourAccessToken } from '../../../store/stores';
 	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
+
+	export let data;
 
 	onMount(() => {
-		getKakaoTokenHandler($kakaoCode);
+		getKakaoTokenHandler(data.kakaoCode);
 	});
 
-	const getKakaoTokenHandler = async (code) => {
+	const getKakaoTokenHandler = (code) => {
 		const data = {
 			grant_type: 'authorization_code',
 			client_id: env.PUBLIC_CLIENT_ID,
@@ -29,10 +32,12 @@
 			.then((res) => {
 				//서버에 토큰 전송
 				// sendKakaoTokenToServer(res.data.access_token)
-				console.log(res);
+				yourAccessToken.set(res.data.access_token);
+
+				goto('/once');
 			});
 	};
 </script>
 
 <h1>callback kakao</h1>
-<h2>{$kakaoCode}</h2>
+<h2>로그인중입니닷^^</h2>
