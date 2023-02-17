@@ -21,7 +21,7 @@
 		const data = {
 			grant_type: 'authorization_code',
 			client_id: env.PUBLIC_CLIENT_ID,
-			redirect_uri: 'http://localhost:5173/auth/kakao',
+			redirect_uri: env.PUBLIC_REDIRECT_URI,
 			code: code
 		};
 		const queryString = Object.keys(data)
