@@ -2,7 +2,6 @@
 	import { goto } from '$app/navigation';
 	import { yourAccessToken } from '../../store/stores';
 
-	$: console.log($yourAccessToken);
 	const runOnce = (fn) => {
 		let isDone = false;
 
@@ -33,4 +32,6 @@
 
 	<button on:click={() => once('천재')}>한번만</button>
 	<button on:click|once={() => once('천재')}>한번만</button>
+
+	<button on:click={() => goto('/')}>going home</button>
 {/if}
