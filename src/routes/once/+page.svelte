@@ -29,7 +29,7 @@
 	<button on:click={() => goto('/')}>로그인</button>
 {:else}
 	<h1>once / memorize</h1>
-
+	<p>여긴 로그인 된 사람만 볼 수 있음</p>
 	<button on:click={() => once('천재')}>한번만</button>
 	<button on:click|once={() => once('천재')}>한번만</button>
 
