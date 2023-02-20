@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import { userName, yourAccessToken } from '../../store/stores';
+	import Welcome from './Welcome.svelte';
 
 	onMount(async () => {
 		const res = await fetch('https://kapi.kakao.com/v2/user/me', {
@@ -52,4 +53,5 @@
 	<button on:click={() => goto('/')}>going home</button>
 {/if}
 
-<dialog>하이</dialog>
+<div />
+<Welcome />
