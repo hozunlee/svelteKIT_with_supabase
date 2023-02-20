@@ -8,3 +8,4 @@ if (typeof window !== 'undefined') {
 }
 
 export const yourAccessToken = writable(stored || '');
+export const userName = writable('');

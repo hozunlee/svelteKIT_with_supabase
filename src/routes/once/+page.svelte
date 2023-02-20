@@ -1,6 +1,21 @@
 <script>
 	import { goto } from '$app/navigation';
-	import { yourAccessToken } from '../../store/stores';
+	import { onMount } from 'svelte';
+	import { userName, yourAccessToken } from '../../store/stores';
+
+	onMount(async () => {
+		const res = await fetch('https://kapi.kakao.com/v2/user/me', {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+				authorization: `Bearer ${$yourAccessToken}`
+			}
+		}).then((res) => res.json());
+		const {
+			properties: { nickname }
+		} = res;
+		$userName = nickname;
+	});
 
 	const runOnce = (fn) => {
 		let isDone = false;
@@ -30,6 +45,7 @@
 {:else}
 	<h1>once / memorize</h1>
 	<p>여긴 로그인 된 사람만 볼 수 있음</p>
+	<div>hi {$userName}</div>
 	<button on:click={() => once('천재')}>한번만</button>
 	<button on:click|once={() => once('천재')}>한번만</button>
 
