@@ -37,9 +37,10 @@
 					'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'
 				}
 			});
-			const { access_token } = await res.json();
-			yourAccessToken.set(access_token);
-			localStorage.setItem('kakao_token', access_token);
+			const result = await res.json();
+			console.log('받아온', result);
+			yourAccessToken.set(result.access_token);
+			localStorage.setItem('kakao_token', result.access_token);
 			alert('로그인 성공 🐯');
 			goto('/once');
 		} catch (error) {

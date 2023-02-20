@@ -35,3 +35,5 @@
 
 	<button on:click={() => goto('/')}>going home</button>
 {/if}
+
+<dialog>하이</dialog>
